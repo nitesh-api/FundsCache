@@ -1,0 +1,5 @@
+https://dzone.com/articles/spring-boot-restful-web-service-complete-example
+
+GET - http://localhost:8083/student/allstudent
+POST - http://localhost:8083/register/student
+	JSON body { "name": "fund1", "age":"20" , "registrationNumber" : "12345" }

@@ -1,0 +1,204 @@
+openapi: 3.0.0
+info:
+  title: Funds Caching Microservice
+  description: Apigee Internal Demo
+  contact:
+    name: Venkata/Karthik/Nitesh
+    url: https://mysite.statestr.com
+    email: nnigam@statestreet.com
+  version: '1.0'
+servers:
+- url: http://localhost:8083/
+  variables: {}
+paths:
+  /update/fund:
+    put:
+      tags:
+      - funds-update-controller
+      summary: updateFundDetailsUsingPUT
+      description: Updates a fund in the cache
+      operationId: UpdateFundDetailsUsingPUT
+      parameters: []
+      requestBody:
+        description: fund
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Funds'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: string
+                description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+  /funds/allFunds:
+    get:
+      tags:
+      - funds-retrieve-controller
+      summary: getStudentUsingGET
+      description: Get Funds from the cache
+      operationId: GetStudentUsingGET
+      parameters: []
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: object
+                description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+  /funds/{fundId}:
+    get:
+      tags:
+      - funds-retrieve-controller
+      summary: getStudentByIdUsingGET
+      description: getStudentById
+      operationId: GetStudentByIdUsingGET
+      parameters:
+      - name: fundId
+        in: path
+        description: fundId
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Funds'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+  /register/funds:
+    post:
+      tags:
+      - funds-registration-controller
+      summary: registerStudentUsingPOST
+      description: Adds a fund into the cache
+      operationId: RegisterStudentUsingPOST
+      parameters: []
+      requestBody:
+        description: fund
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Funds'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/FundsRegResponse'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+        404:
+          description: Not Found
+      deprecated: false
+  /delete/funds/{fundsId}:
+    delete:
+      tags:
+      - funds-delete-controller
+      summary: deleteStudentRecordUsingDELETE
+      description: Deletes a Fund from Cache
+      operationId: DeleteStudentRecordUsingDELETE
+      parameters:
+      - name: fundsId
+        in: path
+        description: fundsId
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: string
+                description: OK
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+      deprecated: false
+components:
+  schemas:
+    FundsRegResponse:
+      title: FundsRegResponse
+      type: object
+      properties:
+        age:
+          type: integer
+          description: Age of the fund in the system
+          format: int32
+        fundName:
+          type: string
+          description: Name of the fund
+        fundStatus:
+          type: string
+          description: Status of the fund
+        fundsId:
+          type: string
+          description: ID of the fund
+    Funds:
+      title: Funds
+      type: object
+      properties:
+        age:
+          type: integer
+          description: Age of the fund in the system.
+          format: int32
+        name:
+          type: string
+          description: Name of the fund
+        registrationNumber:
+          type: string
+          description: Registration Number of the Fund.
+      description: All details about the Funds.
+tags:
+- name: funds-update-controller
+  description: Update exisiting Fund's details.
+- name: funds-retrieve-controller
+  description: Get Funds Details by Fund Id
+- name: funds-registration-controller
+  description: Add Funds to the Cache (POST)
+- name: funds-delete-controller
+  description: Deletes Fund from cache

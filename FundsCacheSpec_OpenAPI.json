@@ -1,0 +1,295 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Apigee Internal Demo",
+    "version": "1.0",
+    "title": "Funds Caching Microservice",
+    "termsOfService": "Terms of service",
+    "contact": {
+      "name": "Venkata/Karthik/Nitesh",
+      "url": "https://mysite.statestr.com",
+      "email": "nnigam@statestreet.com"
+    },
+    "license": {
+      "name": "Apache License Version 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "localhost:8083",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "funds-update-controller",
+      "description": "Update exisiting Fund's details."
+    },
+    {
+      "name": "funds-retrieve-controller",
+      "description": "Get Funds Details by Fund Id"
+    },
+    {
+      "name": "funds-registration-controller",
+      "description": "Add Funds to the Cache (POST)"
+    },
+    {
+      "name": "funds-delete-controller",
+      "description": "Deletes Fund from cache"
+    }
+  ],
+ "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/delete/funds/{fundsId}": {
+      "delete": {
+        "tags": [
+          "funds-delete-controller"
+        ],
+        "summary": "Deletes a Fund from Cache",
+        "operationId": "deleteStudentRecordUsingDELETE",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "fundsId",
+            "in": "path",
+            "description": "fundsId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/funds/allFunds": {
+      "get": {
+        "tags": [
+          "funds-retrieve-controller"
+        ],
+        "summary": "Get Funds from the cache",
+        "operationId": "getStudentUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/funds/{fundId}": {
+      "get": {
+        "tags": [
+          "funds-retrieve-controller"
+        ],
+        "summary": "getStudentById",
+        "operationId": "getStudentByIdUsingGET",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "fundId",
+            "in": "path",
+            "description": "fundId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Funds"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/register/funds": {
+      "post": {
+        "tags": [
+          "funds-registration-controller"
+        ],
+        "summary": "Adds a fund into the cache",
+        "operationId": "registerStudentUsingPOST",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "fund",
+            "description": "fund",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Funds"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/FundsRegResponse"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/update/fund": {
+      "put": {
+        "tags": [
+          "funds-update-controller"
+        ],
+        "summary": "Updates a fund in the cache",
+        "operationId": "updateFundDetailsUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "fund",
+            "description": "fund",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Funds"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "FundsRegResponse": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Age of the fund in the system"
+        },
+        "fundName": {
+          "type": "string",
+          "description": "Name of the fund"
+        },
+        "fundStatus": {
+          "type": "string",
+          "description": "Status of the fund"
+        },
+        "fundsId": {
+          "type": "string",
+          "description": "ID of the fund"
+        }
+      }
+    },
+    "Funds": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Age of the fund in the system."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the fund"
+        },
+        "registrationNumber": {
+          "type": "string",
+          "description": "Registration Number of the Fund."
+        }
+      },
+      "description": "All details about the Funds. "
+    }
+  }
+}

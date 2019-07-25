@@ -6,7 +6,7 @@ pipeline {
 		
 		stage('Validate OpenAPI Spec') {
 			steps {
-				sh "export PATH=$PATH:/usr/local/bin/npm"
+				sh "export PATH=$PATH:/usr/local/bin/"
 				sh "/usr/local/bin/npm install -g swagger-cli"
 				sh "swagger-cli validate OpenAPI_3.json"
 			

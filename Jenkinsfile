@@ -20,7 +20,7 @@ tools {
 				script {
 					try {
 						sh "/usr/local/bin/npm install -g openapi2apigee"
-						sh "openapi2apigee generateApi fundsCache -s fundsCacheDoc.json -d ."
+						sh "openapi2apigee generateApi fundsCache -s FundsCacheSpec_OpenAPI.json -d ."
 					} catch (e) {
 						throw e
 					}

@@ -6,10 +6,10 @@ pipeline {
 		
 		stage('Validate OpenAPI Spec') {
 			steps {
+				sh "export PATH=$PATH:/usr/local/bin/npm"
 				sh "npm install -g swagger-cli"
 				sh "swagger-cli validate OpenAPI_3.json"
-				sh "npm install -g apigeelint"
-				sh "apigeelint -s HR-API/apiproxy/ -f codeframe.js"
+			
 			}
 		}
 		stage('Generate Apigee Proxy Bundle') {

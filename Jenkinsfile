@@ -32,7 +32,13 @@ tools {
 			steps {
 				sh "/usr/local/bin/npm install -g apigeelint"
 				sh "apigeelint -s fundsCache/apiproxy/ -f table.js"
+				sh "pwd"
 			}
 		}
+		
+		
+		
+		
+		
 }
 }

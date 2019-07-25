@@ -1,7 +1,10 @@
 pipeline {
 	agent any
 	
-
+tools {
+        
+        nodejs 'Node'
+    }
 	stages {
 		
 		stage('Validate OpenAPI Spec') {
